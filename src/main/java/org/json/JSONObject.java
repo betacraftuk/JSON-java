@@ -4,6 +4,8 @@ package org.json;
 Public Domain.
 */
 
+import org.json.util.Java5Compat;
+
 import java.io.Closeable;
 import java.io.IOException;
 import java.io.Writer;
@@ -1749,7 +1751,7 @@ public class JSONObject {
      *            If a getter returned a non-finite number.
      */
     private void populateMap(Object bean) {
-        populateMap(bean, Collections.newSetFromMap(new IdentityHashMap<Object, Boolean>()));
+        populateMap(bean, Java5Compat.newSetFromMap(new IdentityHashMap<Object, Boolean>()));
     }
 
     private void populateMap(Object bean, Set<Object> objectsRecord) {
@@ -1769,7 +1771,7 @@ public class JSONObject {
                     && method.getReturnType() != Void.TYPE
                     && isValidMethodName(method.getName())) {
                 final String key = getKeyNameFromMethod(method);
-                if (key != null && !key.isEmpty()) {
+                if (key != null && key.length() != 0) {
                     try {
                         final Object result = method.invoke(bean);
                         if (result != null) {
@@ -1821,7 +1823,7 @@ public class JSONObject {
             }
         }
         JSONPropertyName annotation = getAnnotation(method, JSONPropertyName.class);
-        if (annotation != null && annotation.value() != null && !annotation.value().isEmpty()) {
+        if (annotation != null && annotation.value() != null && annotation.value().length() != 0) {
             return annotation.value();
         }
         String key;
@@ -1840,9 +1842,9 @@ public class JSONObject {
             return null;
         }
         if (key.length() == 1) {
-            key = key.toLowerCase(Locale.ROOT);
+            key = key.toLowerCase();
         } else if (!Character.isUpperCase(key.charAt(1))) {
-            key = key.substring(0, 1).toLowerCase(Locale.ROOT) + key.substring(1);
+            key = key.substring(0, 1).toLowerCase() + key.substring(1);
         }
         return key;
     }
@@ -2247,7 +2249,7 @@ public class JSONObject {
      */
     @SuppressWarnings("resource")
     public static String quote(String string) {
-        if (string == null || string.isEmpty()) {
+        if (string == null || string.length() == 0) {
             return "\"\"";
         }
         Writer sw = new StringBuilderWriter(string.length() + 2);
@@ -2268,7 +2270,7 @@ public class JSONObject {
      * @throws IOException If an I/O error occurs while writing to the Writer.
      */
     public static Writer quote(String string, Writer w) throws IOException {
-        if (string == null || string.isEmpty()) {
+        if (string == null || string.length() == 0) {
             w.write("\"\"");
             return w;
         }

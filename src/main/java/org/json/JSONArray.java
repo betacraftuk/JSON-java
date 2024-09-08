@@ -313,7 +313,6 @@ public class JSONArray implements Iterable<Object> {
     	this.myArrayList = new ArrayList<Object>(initialCapacity);
     }
 
-    @Override
     public Iterator<Object> iterator() {
         return this.myArrayList.iterator();
     }

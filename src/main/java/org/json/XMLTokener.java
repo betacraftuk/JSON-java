@@ -155,7 +155,7 @@ public class XMLTokener extends JSONTokener {
      */
     static String unescapeEntity(String e) {
         // validate
-        if (e == null || e.isEmpty()) {
+        if (e == null || e.length() == 0) {
             return "";
         }
         // if our entity is an encoded unicode point, parse it.

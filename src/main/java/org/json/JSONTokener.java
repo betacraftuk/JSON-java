@@ -560,7 +560,7 @@ public class JSONTokener {
 
         String string = sb.toString().trim();
 
-        if (string.isEmpty()) {
+        if (string.length() == 0) {
             throw this.syntaxError("Missing value");
         }
 

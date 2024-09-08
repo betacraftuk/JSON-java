@@ -60,7 +60,7 @@ public class HTTP {
         String         token;
 
         token = x.nextToken();
-        if (token.toUpperCase(Locale.ROOT).startsWith("HTTP")) {
+        if (token.toUpperCase().startsWith("HTTP")) {
 
 // Response
 

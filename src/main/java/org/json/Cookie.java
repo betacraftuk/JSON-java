@@ -94,7 +94,7 @@ public class Cookie {
         x.next();
         // parse the remaining cookie attributes
         while (x.more()) {
-            name = unescape(x.nextTo("=;")).trim().toLowerCase(Locale.ROOT);
+            name = unescape(x.nextTo("=;")).trim().toLowerCase();
             // don't allow a cookies attributes to overwrite its name or value.
             if("name".equalsIgnoreCase(name)) {
                 throw new JSONException("Illegal attribute name: 'name'");
